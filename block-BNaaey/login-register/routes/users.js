@@ -1,48 +1,50 @@
 var express = require("express");
 var router = express.Router();
-let User = require("../models/User");
+var User = require("../models/User");
 
-router.get("/", function (req, res, next) {
-  console.log(req.session);
-  res.send("respond with a resource");
-});
-
+//login
 router.get("/login", function (req, res, next) {
   res.render("login-form");
 });
 router.post("/login", function (req, res, next) {
-  var { email, password } = req.body;
-  //email OR password field blank
+  let { email, password } = req.body;
+  //when email id OR password is blank
   if (!email || !password) {
-    res.redirect("/users/login");
+    return res.redirect("/");
   }
   User.findOne({ email }, (error, user) => {
     if (error) return next(error);
     //no user
     if (!user) {
-      return res.redirect("/users/login ");
+      return res.redirect("/");
     }
-    //valid user
+    //when user is present
     user.verifyPassword(password, (error, result) => {
-      console.log(error, result);
       if (error) return next(error);
       if (!result) {
-        return res.redirect("/users/login ");
+        return res.redirect("/");
+      } else {
+        req.session.userId = user._id;
+        res.redirect("/users/dashboard");
       }
-      req.session.userId = user.id;
-      res.redirect("/users");
     });
   });
 });
 
-router.get("/register", function (req, res, next) {
-  res.render("register-form");
+//dashBoard
+router.get("/dashboard", function (req, res, next) {
+  res.render("dashboard");
 });
-
+//Register
+router.get("/register", function (req, res, next) {
+  res.render("registration-form");
+});
 router.post("/register", function (req, res, next) {
   User.create(req.body, (error, user) => {
     if (error) return next(error);
-    res.send(user);
+    console.log(user);
+    res.render("users", { user });
   });
 });
+
 module.exports = router;

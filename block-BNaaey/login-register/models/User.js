@@ -15,7 +15,7 @@ let userSchema = new Schema(
 
 userSchema.pre("save", function (next) {
   if (this.password && this.isModified("password")) {
-    bcrypt.hash(this.password, 12, (error, hashed) => {
+    bcrypt.hash(this.password, 10, (error, hashed) => {
       if (error) return next(error);
       this.password = hashed;
       next();
@@ -24,7 +24,6 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
-
 userSchema.methods.verifyPassword = function (password, cb) {
   bcrypt.compare(password, this.password, (error, result) => {
     return cb(error, result);
