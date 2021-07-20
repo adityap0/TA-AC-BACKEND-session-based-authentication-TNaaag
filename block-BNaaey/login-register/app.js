@@ -5,20 +5,16 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var session = require("express-session");
-var MongoStore = require("connect-mongo")(session);
-
-require("dotenv").config();
+var MongoStore = require("connect-mongo");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+
 mongoose.connect(
-  "mongodb://127.0.0.1:27017/register-process",
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  },
+  "mongodb://127.0.0.1:27017/login-register",
+  { useNewUrlParser: true, useUnifiedTopology: true },
   (error) => {
     console.log(error ? error : "Connected to Db");
   }
@@ -33,12 +29,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//session Middleware
 app.use(
   session({
-    secret: process.env.SECRET,
-    resave: false,
+    secret: "somerandomsecret",
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    resave: false,
+    store: MongoStore.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/login-register",
+    }),
   })
 );
 

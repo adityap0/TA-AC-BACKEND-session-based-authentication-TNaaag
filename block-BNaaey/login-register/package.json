@@ -1,5 +1,5 @@
 {
-  "name": "registration-process",
+  "name": "login-register",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "express-session": "^1.17.2",
     "http-errors": "~1.6.3",
     "mongoose": "^5.13.3",
+    "mongoose-connect": "^0.0.3",
     "morgan": "~1.9.1"
   }
 }
