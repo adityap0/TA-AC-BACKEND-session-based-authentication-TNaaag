@@ -4,7 +4,7 @@ var User = require("../models/User");
 
 //login
 router.get("/login", function (req, res, next) {
-  var error = req.flash("error")[0];
+  var error = req.flash("error");
   res.render("login-form", { error });
 });
 router.post("/login", function (req, res, next) {
@@ -18,13 +18,15 @@ router.post("/login", function (req, res, next) {
     if (error) return next(error);
     //no user
     if (!user) {
-      return res.redirect("/");
+      req.flash("error", "This Email-Id is not registered...");
+      return res.redirect("/users/login");
     }
     //when user is present
     user.verifyPassword(password, (error, result) => {
       if (error) return next(error);
       if (!result) {
-        return res.redirect("/");
+        req.flash("error", "Wrong Password Entered...");
+        return res.redirect("/users/login");
       } else {
         req.session.userId = user._id;
         res.redirect("/users/dashboard");
@@ -48,5 +50,9 @@ router.post("/register", function (req, res, next) {
     res.render("users", { user });
   });
 });
-
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.clearCookie("connect.sid");
+  res.redirect("/users/login");
+});
 module.exports = router;
