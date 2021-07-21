@@ -41,8 +41,9 @@ app.use(
     }),
   })
 );
-//flash middleware
-app.use(flash);
+//flash middleware (always after session middleware)
+//info, error, message
+app.use(flash());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -54,6 +55,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+  console.log(err);
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
