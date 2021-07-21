@@ -4,13 +4,15 @@ var User = require("../models/User");
 
 //login
 router.get("/login", function (req, res, next) {
-  res.render("login-form");
+  var error = req.flash("error")[0];
+  res.render("login-form", { error });
 });
 router.post("/login", function (req, res, next) {
   let { email, password } = req.body;
   //when email id OR password is blank
   if (!email || !password) {
-    return res.redirect("/");
+    req.flash("error", "Email/Password is required");
+    return res.redirect("/users/login");
   }
   User.findOne({ email }, (error, user) => {
     if (error) return next(error);
