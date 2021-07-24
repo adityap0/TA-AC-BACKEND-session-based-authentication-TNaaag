@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>Enter Product Details</header>
+    <main>
+      <form action="/product/new" method="POST">
+        <input type="name" name="name" placeholder="Product Name" />
+        <input type="number" name="quantity" placeholder="Enter Quantity" />
+        <select name="price">
+          <option selected disabled>Select Price</option>
+          <option value="150">150</option>
+          <option value="250">250</option>
+          <option value="350">350</option>
+          <option value="450">450</option>
+          <option value="550">550</option>
+        </select>
+        <input type="text" name="image" placeholder="Enter Image Url" />
+        <button type="submit">Confirm</button>
+      </form>
+    </main>
+    <a href="/users"> <footer>Go back</footer></a>
+  </body>
+</html>

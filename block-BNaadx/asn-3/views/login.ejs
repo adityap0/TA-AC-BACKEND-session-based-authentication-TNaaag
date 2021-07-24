@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>Log-In using your details</header>
+    <main>
+      <form action="/users/login" method="POST">
+        <input type="email" name="email" placeholder="Enter your Email" />
+        <input type="password" name="password" placeholder="Enter password" />
+        <button type="submit">Confirm</button>
+      </form>
+    </main>
+    <a href="/users"> <footer>Go back</footer></a>
+  </body>
+</html>
