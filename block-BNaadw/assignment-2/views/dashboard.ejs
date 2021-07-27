@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <header>
+      <article>
+        <h1>Assignment II</h1>
+        <p>Welcome to Express Blog User Dashboard</p>
+      </article>
+      <nav class="header-nav">
+        <ul>
+          <li>
+            <a href="/users/logout"><button>logout</button></a>
+          </li>
+          <li>
+            <a href="/articles/new"><button>Add article</button></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <ul class="article-list">
+        <%articles.forEach((a)=>{%>
+        <li>
+          <a href="/articles/<%= a.slug%>">
+            <h1><%= a.title%></h1>
+          </a>
+        </li>
+        <%})%>
+      </ul>
+    </main>
+  </body>
+</html>
